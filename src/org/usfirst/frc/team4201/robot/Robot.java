@@ -7,7 +7,11 @@
 
 package org.usfirst.frc.team4201.robot;
 
+import org.usfirst.frc.team4201.robot.subsystems.DriveTrain;
+
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -23,6 +27,12 @@ public class Robot extends TimedRobot {
 	private static final String kCustomAuto = "My Auto";
 	private String m_autoSelected;
 	private SendableChooser<String> m_chooser = new SendableChooser<>();
+	public static Command teleOpDrive;
+	SendableChooser<Command> driveMode = new SendableChooser<>();
+	
+	public static DriveTrain driveTrain = new DriveTrain();
+	public static OI oi;
+	
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -30,6 +40,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
+		oi = new OI();
+		
 		m_chooser.addDefault("Default Auto", kDefaultAuto);
 		m_chooser.addObject("My Auto", kCustomAuto);
 		SmartDashboard.putData("Auto choices", m_chooser);
@@ -69,7 +81,20 @@ public class Robot extends TimedRobot {
 				break;
 		}
 	}
-
+	
+	@Override
+	public void teleopInit() {
+		Scheduler.getInstance().removeAll();
+		
+		teleOpDrive = driveMode.getSelected();
+		
+		if (teleOpDrive != null) {
+			teleOpDrive.start();
+			Robot.driveTrain.setDefaultCommand(teleOpDrive);			// To prevent KillAll() from switching drive modes mid-match
+		}
+	}
+	
+	
 	/**
 	 * This function is called periodically during operator control.
 	 */
