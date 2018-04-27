@@ -34,10 +34,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class DriveTrain extends Subsystem {
 	PIDController leftMotorPIDController, rightMotorPIDController, driveGyroPIDController;
-	double kP = 0.03;        		// Start with P = 10% of your max output, double until you get a quarter-decay oscillation
-    double kI = 0;           		// Start with I = P / 100
-    double kD = 0;           		// Start with D = P * 10
-    double period = 0.01;
     
 	public WPI_TalonSRX[] driveMotors = {
 		new WPI_TalonSRX(RobotMap.driveTrainLeftFront),

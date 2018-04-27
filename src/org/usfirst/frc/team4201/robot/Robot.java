@@ -7,8 +7,10 @@
 
 package org.usfirst.frc.team4201.robot;
 
+import org.usfirst.frc.team4201.robot.commands.AutoRoutineScriptWrapper;
 import org.usfirst.frc.team4201.robot.subsystems.DriveTrain;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -23,15 +25,22 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * project.
  */
 public class Robot extends TimedRobot {
-	private static final String kDefaultAuto = "Default";
-	private static final String kCustomAuto = "My Auto";
-	private String m_autoSelected;
-	private SendableChooser<String> m_chooser = new SendableChooser<>();
+	public static DriveTrain driveTrain = new DriveTrain();
+	public static OI oi;
+	
 	public static Command teleOpDrive;
 	SendableChooser<Command> driveMode = new SendableChooser<>();
 	
-	public static DriveTrain driveTrain = new DriveTrain();
-	public static OI oi;
+	Command m_autonomousCommand;
+	private SendableChooser<String> m_chooser = new SendableChooser<>();
+	private static final String[] autoScripts = {
+		"SimpleTest",
+		"ClassCallTest",
+		"FunctionReturn",
+		"FMSReadTest",
+		"InvalidCallTest"
+	};
+	String gameData;
 	
 
 	/**
@@ -42,11 +51,23 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		oi = new OI();
 		
-		m_chooser.addDefault("Default Auto", kDefaultAuto);
-		m_chooser.addObject("My Auto", kCustomAuto);
+		m_chooser.addObject("Simple JS Test", autoScripts[0]);
+		m_chooser.addObject("Class Call Test", autoScripts[1]);
+		m_chooser.addObject("Function Return Test", autoScripts[2]);
+		m_chooser.addObject("FMS Read Test", autoScripts[3]);
+		m_chooser.addObject("Invalid Call Test", autoScripts[4]);
 		SmartDashboard.putData("Auto choices", m_chooser);
 	}
-
+	@Override
+	public void disabledInit() {
+		Scheduler.getInstance().removeAll();
+		
+	}
+	@Override
+	public void disabledPeriodic() {
+		Scheduler.getInstance().run();
+	
+	}
 	/**
 	 * This autonomous (along with the chooser code above) shows how to select
 	 * between different autonomous modes using the dashboard. The sendable
@@ -60,10 +81,13 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		m_autoSelected = m_chooser.getSelected();
-		// m_autoSelected = SmartDashboard.getString("Auto Selector",
-		// 		kDefaultAuto);
-		System.out.println("Auto selected: " + m_autoSelected);
+		String scriptName = m_chooser.getSelected() + ".js";
+		
+		m_autonomousCommand = new AutoRoutineScriptWrapper(scriptName);
+		
+		if (m_autonomousCommand != null) {
+			m_autonomousCommand.start();
+		}
 	}
 
 	/**
@@ -71,15 +95,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		switch (m_autoSelected) {
-			case kCustomAuto:
-				// Put custom auto code here
-				break;
-			case kDefaultAuto:
-			default:
-				// Put default auto code here
-				break;
-		}
+		Scheduler.getInstance().run();
+		
 	}
 	
 	@Override
@@ -100,6 +117,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		Scheduler.getInstance().run();
 	}
 
 	/**
