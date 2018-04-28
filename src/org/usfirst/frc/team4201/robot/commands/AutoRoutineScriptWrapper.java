@@ -7,12 +7,12 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.BBCommandGroup;
 
 /**
  *
  */
-public class AutoRoutineScriptWrapper extends CommandGroup {
+public class AutoRoutineScriptWrapper extends BBCommandGroup {
 	String gameData;
 	
 	ScriptEngineManager factory;

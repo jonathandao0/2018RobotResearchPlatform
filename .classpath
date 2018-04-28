@@ -12,5 +12,9 @@
 	<classpathentry kind="var" path="USERLIBS_DIR/Pathfinder-Java-1.8-javadoc.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/Pathfinder-Java-1.8-sources.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/Pathfinder-Java-1.8.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/BeachbotLib-javadoc.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/BeachbotLib-sources.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/BeachbotLib.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/ini-reader-v2.2rc2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -9,6 +9,7 @@ package org.usfirst.frc.team4201.robot;
 
 import org.usfirst.frc.team4201.robot.commands.AutoRoutineScriptWrapper;
 import org.usfirst.frc.team4201.robot.subsystems.DriveTrain;
+import org.usfirst.frc330.util.CSVLogger;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -49,6 +50,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
+        CSVLogger.getInstance().writeHeader();
+        
 		oi = new OI();
 		
 		m_chooser.addObject("Simple JS Test", autoScripts[0]);

@@ -2,9 +2,9 @@ package org.usfirst.frc.team4201.robot.commands;
 
 import org.usfirst.frc.team4201.robot.Robot;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.BBCommand;
 
-public class SetCheesyDrive extends Command{
+public class SetCheesyDrive extends BBCommand{
 	public SetCheesyDrive() {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.driveTrain);
