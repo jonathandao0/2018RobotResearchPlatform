@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team4201.robot;
 
+import javax.script.Invocable;
+
 import org.usfirst.frc.team4201.robot.commands.*;
 import org.usfirst.frc.team4201.robot.subsystems.*;
 import org.usfirst.frc330.util.CSVLogger;
@@ -34,14 +36,8 @@ public class Robot extends TimedRobot {
 	SendableChooser<Command> driveMode = new SendableChooser<>();
 	
 	Command m_autonomousCommand;
-	public static SendableChooser<String> m_chooser = new SendableChooser<>();
-	private static final String[] autoScripts = {
-		"SimpleTest",
-		"ClassCallTest",
-		"FunctionReturn",
-		"FMSReadTest",
-		"InvalidCallTest"
-	};
+	public static SendableChooser<Invocable> m_chooser = new SendableChooser<>();
+	
 	String gameData;
 	
 
@@ -55,11 +51,7 @@ public class Robot extends TimedRobot {
         scribe = new Scribe();
 		oi = new OI();
 		
-		m_chooser.addObject("Simple JS Test", autoScripts[0]);
-		m_chooser.addObject("Class Call Test", autoScripts[1]);
-		m_chooser.addObject("Function Return Test", autoScripts[2]);
-		m_chooser.addObject("FMS Read Test", autoScripts[3]);
-		m_chooser.addObject("Invalid Call Test", autoScripts[4]);
+		scribe.initAutoScripts();
 		SmartDashboard.putData("Test Commands", m_chooser);
 		SmartDashboard.putData("Select Test Command", new SelectTestCommand());
 	}

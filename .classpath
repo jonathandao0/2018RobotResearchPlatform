@@ -8,5 +8,11 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8/"/>
 	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
+	<classpathentry kind="lib" path="C:/Users/1129975/Documents/Java Workspace/2018RobotResearchPlatform/Libs/Jars/BeachbotLib.jar" sourcepath="C:/Users/1129975/Documents/Java Workspace/2018RobotResearchPlatform/Libs/Source/BeachbotLib-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/C:/Users/1129975/Documents/Java%20Workspace/2018RobotResearchPlatform/Libs/Source/BeachbotLib-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/1129975/Documents/Java Workspace/2018RobotResearchPlatform/Libs/Jars/ini-reader-v2.2rc2.jar"/>
 	<classpathentry kind="output" path="bin/default"/>
 </classpath>
