@@ -7,8 +7,8 @@
 
 package org.usfirst.frc.team4201.robot;
 
-import org.usfirst.frc.team4201.robot.commands.AutoRoutineScriptWrapper;
-import org.usfirst.frc.team4201.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team4201.robot.commands.*;
+import org.usfirst.frc.team4201.robot.subsystems.*;
 import org.usfirst.frc330.util.CSVLogger;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -26,14 +26,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * project.
  */
 public class Robot extends TimedRobot {
-	public static DriveTrain driveTrain = new DriveTrain();
+	public static DriveTrain driveTrain;// = new DriveTrain();
+	public static Scribe scribe;
 	public static OI oi;
 	
 	public static Command teleOpDrive;
 	SendableChooser<Command> driveMode = new SendableChooser<>();
 	
 	Command m_autonomousCommand;
-	private SendableChooser<String> m_chooser = new SendableChooser<>();
+	public static SendableChooser<String> m_chooser = new SendableChooser<>();
 	private static final String[] autoScripts = {
 		"SimpleTest",
 		"ClassCallTest",
@@ -51,7 +52,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
         CSVLogger.getInstance().writeHeader();
-        
+        scribe = new Scribe();
 		oi = new OI();
 		
 		m_chooser.addObject("Simple JS Test", autoScripts[0]);
@@ -59,7 +60,8 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Function Return Test", autoScripts[2]);
 		m_chooser.addObject("FMS Read Test", autoScripts[3]);
 		m_chooser.addObject("Invalid Call Test", autoScripts[4]);
-		SmartDashboard.putData("Auto choices", m_chooser);
+		SmartDashboard.putData("Test Commands", m_chooser);
+		SmartDashboard.putData("Select Test Command", new SelectTestCommand());
 	}
 	@Override
 	public void disabledInit() {

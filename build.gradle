@@ -6,7 +6,7 @@ plugins {
 }
 
 def TEAM = 4201
-def ROBOT_CLASS = "frc.team4201.robot.Robot"
+def ROBOT_CLASS = "org.usfirst.frc.team4201.robot.Robot"
 
 // Define my targets (RoboRIO) and artifacts (deployable files)
 // This is added by GradleRIO's backing project EmbeddedTools.
@@ -29,11 +29,12 @@ dependencies {
     compile wpilib()
     compile ctre()
     compile navx()
+	compile pathfinder()
     //compile openrio.powerup.matchData()
 	
-	compile fileTree(dir: "libs", include: "**/*.jar")
+	compile fileTree(dir: "libs/Jars", include: "*.jar")
 	
-    nativeLib fileTree(dir: "libs", include: "**/*.so")
+    nativeLib fileTree(dir: "libs/Jars", include: "*.so")
 }
 
 // Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')
@@ -48,7 +49,10 @@ task wrapper(type: Wrapper) {
     gradleVersion = '4.4'
 }
 
-repositories {
+sourceSets {
+    main.java.srcDirs = ['src/']
+}
 
-
+task listJars << {
+    configurations.compile.each { File file -> println file.name }
 }
