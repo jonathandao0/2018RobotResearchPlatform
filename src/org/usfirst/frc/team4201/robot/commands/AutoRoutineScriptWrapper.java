@@ -15,10 +15,8 @@ import edu.wpi.first.wpilibj.command.BBCommandGroup;
  */
 public class AutoRoutineScriptWrapper extends BBCommandGroup {
 	
-    public AutoRoutineScriptWrapper(String scriptName) {
+    public AutoRoutineScriptWrapper() {
     	System.out.println("Running JS Wrapper...");
-		String filePath = "/media/sda1/4201RobotFiles/AutoRoutines/" + scriptName + ".js";
-    	ScriptEngine evaluator = Robot.scribe.engine;
 		
 		try {
 			Robot.m_chooser.getSelected().invokeFunction("autoRoutine"); // Need case structure for different commands requiring different arguments

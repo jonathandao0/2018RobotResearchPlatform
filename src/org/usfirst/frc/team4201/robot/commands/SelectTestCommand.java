@@ -22,9 +22,7 @@ public class SelectTestCommand extends BBCommand {
     protected void initialize() {
     	System.out.println("Selecting Test Command...");
 		
-    	String scriptName = Robot.m_chooser.getSelected();
-		
-		Command m_autonomousCommand = new AutoRoutineScriptWrapper(scriptName);
+		Command m_autonomousCommand = new AutoRoutineScriptWrapper();
 		
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();

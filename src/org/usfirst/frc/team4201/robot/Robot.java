@@ -53,6 +53,8 @@ public class Robot extends TimedRobot {
 		
 		scribe.initAutoScripts();
 		SmartDashboard.putData("Test Commands", m_chooser);
+		
+		// Calling the scripts like this may be invalid, cause it to only execute once
 		SmartDashboard.putData("Select Test Command", new SelectTestCommand());
 	}
 	@Override
@@ -78,9 +80,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		String scriptName = m_chooser.getSelected() + ".js";
-		
-		m_autonomousCommand = new AutoRoutineScriptWrapper(scriptName);
+		m_autonomousCommand = new AutoRoutineScriptWrapper();
 		
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
