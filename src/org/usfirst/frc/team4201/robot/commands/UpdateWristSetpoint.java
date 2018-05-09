@@ -31,10 +31,10 @@ public class UpdateWristSetpoint extends Command {
     	if(RobotMap.WristState == 0) {
     		// If the arm somehow gets out of range, pull it back in range automatically.
  			// If this isn't done, then there is a chance the wrist can become uncontrollable due to the increment not being able to set the setpoint in range.
-    		if(Robot.wrist.getAbsoluteAngle() > Robot.wrist.angleUpperLimit)
- 				Robot.wrist.setSetpoint(Robot.wrist.angleUpperLimit - 2);
- 			else if(Robot.wrist.getAbsoluteAngle() < Robot.wrist.angleLowerLimit)
- 				Robot.wrist.setSetpoint(Robot.wrist.angleLowerLimit + 2);
+    		if(Robot.wrist.getAbsoluteAngle() > Wrist.angleUpperLimit)
+ 				Robot.wrist.setSetpoint(Wrist.angleUpperLimit - 2);
+ 			else if(Robot.wrist.getAbsoluteAngle() < Wrist.angleLowerLimit)
+ 				Robot.wrist.setSetpoint(Wrist.angleLowerLimit + 2);
  			
     		if(intaking || Robot.oi.xBoxButtons[0].get() || Robot.oi.xBoxButtons[1].get() || autoCommand){
     			
@@ -48,7 +48,7 @@ public class UpdateWristSetpoint extends Command {
 					if(Robot.arm.getAngle() < -45)
 						setpoint = 0;
 					else
-						setpoint = 130;
+						setpoint = Wrist.wristRetractedAngle;
 				}
 	 			//else if(Robot.oi.xBoxButtons[2].get())
 	    		//	Robot.wrist.setSetpoint(Robot.wrist.convertRelativeToAbsoluteSetpoint(180));
@@ -70,11 +70,11 @@ public class UpdateWristSetpoint extends Command {
 				// Default to one of two setpoints if no setpoint is being actively commanded
 	 			if(Robot.arm.getAngle() < 13) 
 	 				// If the arm is in the limit range, then we always have it retracted
-	 				setpoint = 130;
+	 				setpoint = Wrist.wristRetractedAngle;
 				else if(Robot.arm.getAngle() >= 0)
-	 				setpoint = Robot.wrist.convertRelativeToAbsoluteSetpoint(90);
+	 				setpoint = Robot.wrist.convertRelativeToAbsoluteSetpoint(Wrist.wristNeutralScaleAngle);
  			
-			Robot.wrist.setSetpoint(setpoint > Robot.wrist.angleUpperLimit ? Robot.wrist.angleUpperLimit - 1: setpoint < Robot.wrist.angleLowerLimit ? Robot.wrist.angleLowerLimit + 1: setpoint);
+			Robot.wrist.setSetpoint(setpoint > Wrist.angleUpperLimit ? Wrist.angleUpperLimit - 1: setpoint < Wrist.angleLowerLimit ? Wrist.angleLowerLimit + 1: setpoint);
     	} else {
     		if(!Robot.oi.xBoxButtons[5].get() && !Robot.oi.xBoxRightTrigger.get())
     			Robot.wrist.setDirectOutput(0.1); // Prevent backdrive in manual mode (Wrist can still move a bit after a certain point)

@@ -1,10 +1,5 @@
 package org.usfirst.frc.team4201.robot.commands;
 
-import java.io.FileReader;
-
-import javax.script.Invocable;
-import javax.script.ScriptEngine;
-
 import org.usfirst.frc.team4201.robot.Robot;
 
 import edu.wpi.first.wpilibj.DriverStation;

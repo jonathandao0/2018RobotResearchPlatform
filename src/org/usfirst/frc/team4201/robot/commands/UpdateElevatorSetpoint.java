@@ -32,8 +32,8 @@ public class UpdateElevatorSetpoint extends Command {
  		if(RobotMap.ElevatorState == 0){
 			// If the elevator somehow gets out of range, pull it back in range automatically.
  			// If this isn't done, then there is a chance the elevator can become uncontrollable due to the increment not being able to set the setpoint in range.
- 			if(Robot.elevator.getHieght() > Robot.elevator.hieghtUpperLimit)
- 				Robot.elevator.setSetpoint(Robot.elevator.hieghtUpperLimit - 0.5);
+ 			if(Robot.elevator.getHieght() > Elevator.hieghtUpperLimit)
+ 				Robot.elevator.setSetpoint(Elevator.hieghtUpperLimit - 0.5);
  			
  			// We do this check to make sure co-driver is actually commanding the elevator and not due to minor movement of the joystick.
  			// This also prevent an issue where setSetpoint(getSetpoint() + yAxis == 0) continually adds to the setpoint (floating point rounding?)

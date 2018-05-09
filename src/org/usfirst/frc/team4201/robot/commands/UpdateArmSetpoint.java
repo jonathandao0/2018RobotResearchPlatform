@@ -3,7 +3,6 @@ package org.usfirst.frc.team4201.robot.commands;
 import org.usfirst.frc.team4201.robot.Robot;
 import org.usfirst.frc.team4201.robot.RobotMap;
 import org.usfirst.frc.team4201.robot.subsystems.Arm;
-import org.usfirst.frc.team4201.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
@@ -34,8 +33,8 @@ public class UpdateArmSetpoint extends Command {
  		if(RobotMap.ArmState == 0){
  			// If the arm somehow gets out of range, pull it back in range automatically.
  			// If this isn't done, then there is a chance the arm can become uncontrollable due to the increment not being able to set the setpoint in range.
- 			if(Robot.arm.getAngle() > Robot.arm.angleUpperLimit)
- 				Robot.arm.setSetpoint(Robot.arm.angleUpperLimit - 2);
+ 			if(Robot.arm.getAngle() > Arm.angleUpperLimit)
+ 				Robot.arm.setSetpoint(Arm.angleUpperLimit - 2);
  			//else if(Robot.arm.getAngle() < Robot.arm.angleLowerLimit)
  			//	Robot.arm.setSetpoint(Robot.arm.angleLowerLimit + 2);
 
@@ -64,10 +63,10 @@ public class UpdateArmSetpoint extends Command {
  			if(!DriverStation.getInstance().isAutonomous()) {
 	 			if(Robot.arm.getAngle() < -45) {
 	 				Robot.arm.setOutputRange(-0.25, 1);
-	 				Robot.arm.getPIDController().setP(Robot.arm.kPDown);
+	 				Robot.arm.getPIDController().setP(Arm.kPDown);
 	 			} else {
 	 				Robot.arm.setOutputRange(-0.75, 1);
-	 				Robot.arm.getPIDController().setP(Robot.arm.kPUp);
+	 				Robot.arm.getPIDController().setP(Arm.kPUp);
 	 			}
  			}
  		}

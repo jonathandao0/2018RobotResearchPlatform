@@ -21,6 +21,7 @@ public class RobotMap {
 	public static int WristState = 0;
 	public static int ArmState = 0;
 	public static int ElevatorState = 0;
+	public static boolean testMode = true;
 	
 	// USB ADDRESSES
 	public static final int leftJoystick = 0;
