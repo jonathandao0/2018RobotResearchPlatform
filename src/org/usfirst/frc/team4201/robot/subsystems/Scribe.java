@@ -32,10 +32,14 @@ public class Scribe extends Subsystem {
 	
 	public void initAutoScripts() {
 		for (int i = 1; i < autoScripts.length; i++) {
-			String filePath = "/media/sda1/4201RobotFiles/AutoRoutines/" + autoScripts[i] + ".js";
-			engine.eval(new FileReader(filePath));
-			Invocable invocable = (Invocable) engine;
-			Robot.m_chooser.addDefault(autoScripts[i], invocable);
+			try {
+				String filePath = "/media/sda1/4201RobotFiles/AutoRoutines/" + autoScripts[i] + ".js";
+				engine.eval(new FileReader(filePath));
+				Invocable invocable = (Invocable) engine;
+				Robot.m_chooser.addDefault(autoScripts[i], invocable);
+			} catch (Exception e){
+				System.out.println("4201 Error: Could not initialize " + autoScripts[i] + ".js");
+			}
 		}
 	}
 	

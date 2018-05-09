@@ -18,6 +18,10 @@ package org.usfirst.frc.team4201.robot;
 
 
 public class RobotMap {
+	public static int WristState = 0;
+	public static int ArmState = 0;
+	public static int ElevatorState = 0;
+	
 	// USB ADDRESSES
 	public static final int leftJoystick = 0;
 	public static final int rightJoystick = 1;

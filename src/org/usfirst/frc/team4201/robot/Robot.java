@@ -9,6 +9,7 @@ package org.usfirst.frc.team4201.robot;
 
 import javax.script.Invocable;
 
+import org.usfirst.frc.team4201.robot.RobotMap;
 import org.usfirst.frc.team4201.robot.commands.*;
 import org.usfirst.frc.team4201.robot.subsystems.*;
 import org.usfirst.frc330.util.CSVLogger;
@@ -29,6 +30,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends TimedRobot {
 	public static DriveTrain driveTrain;// = new DriveTrain();
+	public static Wrist wrist;
+	public static Arm arm;
+	public static Elevator elevator;
 	public static Scribe scribe;
 	public static OI oi;
 	
@@ -56,6 +60,12 @@ public class Robot extends TimedRobot {
 		
 		// Calling the scripts like this may be invalid, cause it to only execute once
 		SmartDashboard.putData("Select Test Command", new SelectTestCommand());
+		
+		// Initialize config settings
+		ConfigValues.readIniFile();
+		ConfigValues.getWristConstantsFromFile();
+		ConfigValues.getArmConstantsFromFile();
+		ConfigValues.getElevatorConstantsFromFile();
 	}
 	@Override
 	public void disabledInit() {
@@ -105,6 +115,12 @@ public class Robot extends TimedRobot {
 		if (teleOpDrive != null) {
 			teleOpDrive.start();
 			Robot.driveTrain.setDefaultCommand(teleOpDrive);			// To prevent KillAll() from switching drive modes mid-match
+		}
+		
+		if(RobotMap.testMode) {
+			ConfigValues.getWristConstantsFromFile();
+			ConfigValues.getArmConstantsFromFile();
+			ConfigValues.getElevatorConstantsFromFile();
 		}
 	}
 	
