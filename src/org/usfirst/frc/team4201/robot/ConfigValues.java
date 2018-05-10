@@ -1,4 +1,4 @@
-/*----------------------------------------------------------------------------*/
+/*------------------------------------------------------------oubl----------------*/
 	/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
@@ -7,12 +7,11 @@
 
 package org.usfirst.frc.team4201.robot;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import org.usfirst.frc.team1699.utils.inireader.ConfigFile;
-import org.usfirst.frc.team1699.utils.inireader.ConfigSection;
-import org.usfirst.frc.team1699.utils.inireader.exception.NotFoundException;
+import org.ini4j.Wini;
 import org.usfirst.frc.team4201.robot.subsystems.*;
 
 /**
@@ -23,11 +22,11 @@ import org.usfirst.frc.team4201.robot.subsystems.*;
 
 public class ConfigValues {
 	
-	static ConfigFile config;
+	static Wini config;
 	
 	public static void readIniFile() {
 		try {
-			config = new ConfigFile("/media/sda1/4201RobotFiles/4201config.ini");
+			config = new Wini(new File("/media/sda1/4201RobotFiles/4201config.ini"));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.out.println("4201 Error: ini FileNotFound");
@@ -40,96 +39,93 @@ public class ConfigValues {
 	}
 	
 	public static void getWristConstantsFromFile(){
-		ConfigSection wrist;
-		
 		try {
-			wrist = config.getSection("Wrist");
-
-			Wrist.kP = wrist.getLineValue("kP", double.class);
-			Wrist.kI = wrist.getLineValue("kI", double.class);
-			Wrist.kD = wrist.getLineValue("kD", double.class);
-			Wrist.kF = wrist.getLineValue("kF", double.class);
-			Wrist.period = wrist.getLineValue("period", double.class);
+			Wrist.kP = config.get("Wrist", "kP", double.class);
+			System.out.println(Wrist.kP);
+			//Wrist.kI = (double) wrist.getLine("kI").getRawValue();
+			//Wrist.kD = (double) wrist.getLine("kD").getRawValue();
+			//Wrist.kF = (double) wrist.getLine("kF").getRawValue();
+			//Wrist.period = (double) wrist.getLine("period").getRawValue();
+			//
+			//Wrist.angleLowerLimit = (double) wrist.getLine("angleLowerLimit").getRawValue();
+			//Wrist.angleUpperLimit = (double) wrist.getLine("angleUpperLimit").getRawValue();
+			//Wrist.sensorLowerLimit = (double) wrist.getLine("sensorLowerLimit").getRawValue();
+			//Wrist.sensorUpperLimit = (double) wrist.getLine("sensorUpperLimit").getRawValue();
+			//Wrist.sensorOffset = (double) wrist.getLine("sensorOffset").getRawValue();
+			//
+			//Wrist.armLimiterLowerBound = (double) wrist.getLine("armLimiterLowerBound").getRawValue();
+			//Wrist.armLimiterUpperBound = (double) wrist.getLine("armLimiterUpperBound").getRawValue();
+			//
+			//Wrist.wristRetractedAngle = (double) wrist.getLine("wristRetractedAngle").getRawValue();
+			//Wrist.wristNeutralScaleAngle = (double) wrist.getLine("wristNeutralScaleAngle").getRawValue();
 			
-			Wrist.angleLowerLimit = wrist.getLineValue("angleLowerLimit", double.class);
-			Wrist.angleUpperLimit = wrist.getLineValue("angleUpperLimit", double.class);
-			Wrist.sensorLowerLimit = wrist.getLineValue("sensorLowerLimit", double.class);
-			Wrist.sensorUpperLimit = wrist.getLineValue("sensorUpperLimit", double.class);
-			Wrist.sensorOffset = wrist.getLineValue("sensorOffset", double.class);
-			
-			Wrist.armLimiterLowerBound = wrist.getLineValue("armLimiterLowerBound", double.class);
-			Wrist.armLimiterUpperBound = wrist.getLineValue("armLimiterUpperBound", double.class);
-			
-			Wrist.wristRetractedAngle = wrist.getLineValue("wristRetractedAngle", double.class);
-			Wrist.wristNeutralScaleAngle = wrist.getLineValue("wristNeutralScaleAngle", double.class);
-			
-		} catch (NotFoundException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.out.println("4201 Error: Error reading Wrist section from config file");
-			//e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
 	
 	public static void getArmConstantsFromFile(){
-		ConfigSection arm;
-		
-		try {
-			arm = config.getSection("Arm");
-
-			Arm.kP = arm.getLineValue("kP", double.class);
-			Arm.kI = arm.getLineValue("kI", double.class);
-			Arm.kD = arm.getLineValue("kD", double.class);
-			Arm.kF = arm.getLineValue("kF", double.class);
-			Arm.period = arm.getLineValue("period", double.class);
-			
-			Arm.angleLowerLimit = arm.getLineValue("angleLowerLimit", double.class);
-			Arm.angleUpperLimit = arm.getLineValue("angleUpperLimit", double.class);
-			Arm.sensorLowerLimit = arm.getLineValue("sensorLowerLimit", double.class);
-			Arm.sensorUpperLimit = arm.getLineValue("sensorUpperLimit", double.class);
-			Arm.sensorOffset = arm.getLineValue("sensorOffset", double.class);
-			
-			Arm.armHomeAngle = arm.getLineValue("armHomeAngle", double.class);
-			Arm.armSwitchAngle = arm.getLineValue("armSwitchAngle", double.class);
-			Arm.armScaleAngle = arm.getLineValue("armScaleAngle", double.class);
-			
-		} catch (NotFoundException e) {
-			// TODO Auto-generated catch block
-			System.out.println("4201 Error: Error reading Arm section from config file");
-			//e.printStackTrace();
-		}
+//		ConfigSection arm;
+//		
+//		try {
+//			arm = config.getSection("Arm");
+//
+//			//Arm.kP = (double) arm.getLine("kP").getRawValue();
+//			//Arm.kI = (double) arm.getLine("kI").getRawValue();
+//			//Arm.kD = (double) arm.getLine("kD").getRawValue();
+//			//Arm.kF = (double) arm.getLine("kF").getRawValue();
+//			//Arm.period = (double) arm.getLine("period").getRawValue();
+//			//
+//			//Arm.angleLowerLimit = (double) arm.getLine("angleLowerLimit").getRawValue();
+//			//Arm.angleUpperLimit = (double) arm.getLine("angleUpperLimit").getRawValue();
+//			//Arm.sensorLowerLimit = (double) arm.getLine("sensorLowerLimit").getRawValue();
+//			//Arm.sensorUpperLimit = (double) arm.getLine("sensorUpperLimit").getRawValue();
+//			//Arm.sensorOffset = (double) arm.getLine("sensorOffset").getRawValue();
+//			//
+//			//Arm.armHomeAngle = (double) arm.getLine("armHomeAngle").getRawValue();
+//			//Arm.armSwitchAngle = (double) arm.getLine("armSwitchAngle").getRawValue();
+//			//Arm.armScaleAngle = (double) arm.getLine("armScaleAngle").getRawValue();
+//			
+//		} catch (NotFoundException e) {
+//			// TODO Auto-generated catch block
+//			System.out.println("4201 Error: Error reading Arm section from config file");
+//			//e.printStackTrace();
+//		}
 	}
 	
 	public static void getElevatorConstantsFromFile(){
-		ConfigSection elevator;
-		try {
-			elevator = config.getSection("Elevator");
-			
-			Elevator.kP = elevator.getLineValue("kP", double.class);
-			Elevator.kI = elevator.getLineValue("kI", double.class);
-			Elevator.kD = elevator.getLineValue("kD", double.class);
-			Elevator.kF = elevator.getLineValue("kF", double.class);
-			Elevator.period = elevator.getLineValue("period", double.class);
-
-			Elevator.kPHighUp = elevator.getLineValue("kPHighUp", double.class);
-			Elevator.kIHighUp = elevator.getLineValue("kIHighUp", double.class);
-			Elevator.kDHighUp = elevator.getLineValue("kDHighUp", double.class);
-			
-			Elevator.hieghtLowerLimit = elevator.getLineValue("hieghtLowerLimit", double.class);
-			Elevator.hieghtUpperLimit = elevator.getLineValue("hieghtUpperLimit", double.class);
-			Elevator.sensorLowerLimit = elevator.getLineValue("sensorLowerLimit", double.class);
-			Elevator.sensorUpperLimit = elevator.getLineValue("sensorUpperLimit", double.class);
-			Elevator.sensorOffset = elevator.getLineValue("sensorOffset", double.class);
-			
-			Elevator.elevatorHomePosition = elevator.getLineValue("elevatorHomePosition", double.class);
-			Elevator.elevatorSwitchPosition = elevator.getLineValue("elevatorSwitchPosition", double.class);
-			Elevator.elevatorScaleLowPosition = elevator.getLineValue("elevatorScaleLowPosition", double.class);
-			Elevator.elevatorScaleHighPosition = elevator.getLineValue("elevatorScaleHighPosition", double.class);
-			Elevator.elevatorScaleVeryHighPosition = elevator.getLineValue("elevatorScaleVeryHighPosition", double.class);
-			
-		} catch (NotFoundException e) {
-			// TODO Auto-generated catch block
-			System.out.println("4201 Error:Error reading Elevator section from config file");
-			//e.printStackTrace();
-		}
+//		ConfigSection elevator;
+//		try {
+//			elevator = config.getSection("Elevator");
+//			
+//			//Elevator.kP = (double) elevator.getLine("kP").getRawValue();
+//			//Elevator.kI = (double) elevator.getLine("kI").getRawValue();
+//			//Elevator.kD = (double) elevator.getLine("kD").getRawValue();
+//			//Elevator.kF = (double) elevator.getLine("kF").getRawValue();
+//			//Elevator.period = (double) elevator.getLine("period").getRawValue();
+//            //
+//			//Elevator.kPHighUp = (double) elevator.getLine("kPHighUp").getRawValue();
+//			//Elevator.kIHighUp = (double) elevator.getLine("kIHighUp").getRawValue();
+//			//Elevator.kDHighUp = (double) elevator.getLine("kDHighUp").getRawValue();
+//			//
+//			//Elevator.hieghtLowerLimit = (double) elevator.getLine("hieghtLowerLimit").getRawValue();
+//			//Elevator.hieghtUpperLimit = (double) elevator.getLine("hieghtUpperLimit").getRawValue();
+//			//Elevator.sensorLowerLimit = (double) elevator.getLine("sensorLowerLimit").getRawValue();
+//			//Elevator.sensorUpperLimit = (double) elevator.getLine("sensorUpperLimit").getRawValue();
+//			//Elevator.sensorOffset = (double) elevator.getLine("sensorOffset").getRawValue();
+//			//
+//			//Elevator.elevatorHomePosition = (double) elevator.getLine("elevatorHomePosition").getRawValue();
+//			//Elevator.elevatorSwitchPosition = (double) elevator.getLine("elevatorSwitchPosition").getRawValue();
+//			//Elevator.elevatorScaleLowPosition = (double) elevator.getLine("elevatorScaleLowPosition").getRawValue();
+//			//Elevator.elevatorScaleHighPosition = (double) elevator.getLine("elevatorScaleHighPosition").getRawValue();
+//			//Elevator.elevatorScaleVeryHighPosition = (double) elevator.getLine("elevatorScaleVeryHighPosition").getRawValue();
+//			
+//		} catch (NotFoundException e) {
+//			// TODO Auto-generated catch block
+//			System.out.println("4201 Error:Error reading Elevator section from config file");
+//			//e.printStackTrace();
+//		}
 	}
 }

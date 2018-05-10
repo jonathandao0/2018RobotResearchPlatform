@@ -5,9 +5,15 @@ import org.usfirst.frc.team4201.robot.RobotMap;
 import org.usfirst.frc.team4201.robot.commands.*;
 import org.usfirst.frc.team4201.robot.interfaces.Shuffleboard;
 
+import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalOutput;
+import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -21,6 +27,7 @@ public class Controls extends Subsystem{
 	boolean wLock = false, aLock = false, eLock = false;
 	boolean wCheck = true, aCheck = true, eCheck = true;
 	int wristCheck = 1;
+	
 	public DigitalOutput LEDS[] = {
 		new DigitalOutput(RobotMap.redSignal),
 		new DigitalOutput(RobotMap.greenSignal),
@@ -31,6 +38,8 @@ public class Controls extends Subsystem{
 	public int powerState;
 	
 	public AHRS navX;
+	public AnalogInput navXAnalogInputFour = new AnalogInput(4);
+	public AnalogPotentiometer threeTurnPot = new AnalogPotentiometer(navXAnalogInputFour, 1080);
 	
 	public Controls(){
 		super("Controls");
@@ -38,7 +47,7 @@ public class Controls extends Subsystem{
 		elevatorTimeout = new Timer();
 		wristTimer = new Timer();
 		
-		navX = new AHRS();
+		navX = new AHRS(SPI.Port.kMXP);
 	}
 	
 	public void updateCurrentState(){
@@ -180,6 +189,14 @@ public class Controls extends Subsystem{
 		
 		//Shuffleboard.putData("Controls", new PotentiometerRecalibration(Robot.wrist.wristPot));
 		//Shuffleboard.putData("Controls", new PotentiometerRecalibration(Robot.elevator.elevatorPot));
+		
+		SmartDashboard.putNumber("NavX Angle", navX.getAngle());
+		SmartDashboard.putNumber("NavX Pitch", navX.getPitch());
+		SmartDashboard.putNumber("NavX Yaw", navX.getYaw());
+		SmartDashboard.putNumber("NavX Roll", navX.getRoll());
+		
+		SmartDashboard.putNumber("NavX AnalogInput Voltage", navXAnalogInputFour.getAverageVoltage());
+		SmartDashboard.putNumber("NavX AnalogInput Angle", threeTurnPot.get());
 	}
 	
 	
