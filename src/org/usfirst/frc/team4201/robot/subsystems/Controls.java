@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Controls extends Subsystem{
-	PowerDistributionPanel pdp = new PowerDistributionPanel();
+	PowerDistributionPanel pdp ;//= new PowerDistributionPanel();
 	
 	public Timer autoTimer = new Timer();
 	Timer elevatorTimeout, wristTimer;
@@ -166,25 +166,25 @@ public class Controls extends Subsystem{
 	
 	public void updateSmartDashboard(){
 		// Use Shuffleboard to place things in their own tabs
-		Shuffleboard.putNumber("Controls", "DriveTrain Front Left Current", Robot.driveTrain.driveMotors[0].getOutputCurrent());
-		Shuffleboard.putNumber("Controls", "DriveTrain Rear Left Current", Robot.driveTrain.driveMotors[1].getOutputCurrent());
-		Shuffleboard.putNumber("Controls", "DriveTrain Front Right Current", Robot.driveTrain.driveMotors[2].getOutputCurrent());
-		Shuffleboard.putNumber("Controls", "DriveTrain Rear Right Current", Robot.driveTrain.driveMotors[3].getOutputCurrent());
-		Shuffleboard.putNumber("Controls", "ElevatorA Current", Robot.elevator.elevatorMotors[0].getOutputCurrent());
-		Shuffleboard.putNumber("Controls", "ElevatorB Current", Robot.elevator.elevatorMotors[1].getOutputCurrent());
-		Shuffleboard.putNumber("Controls", "Arm Current", Robot.arm.armMotors[0].getOutputCurrent());
-		//Shuffleboard.putNumber("Controls", "ArmB Current", Robot.arm.armMotors[1].getOutputCurrent());
-		Shuffleboard.putNumber("Controls", "Wrist Current", Robot.wrist.wristMotor.getOutputCurrent());
-		//Shuffleboard.putNumber("Controls", "Intake Left Current", Robot.intake.intakeMotors[0].getOutputCurrent());
-		//Shuffleboard.putNumber("Controls", "Intake Right Current", Robot.intake.intakeMotors[1].getOutputCurrent());
-		
-		Shuffleboard.putNumber("Controls", "Total Current Draw", pdp.getTotalCurrent());
+//		Shuffleboard.putNumber("Controls", "DriveTrain Front Left Current", Robot.driveTrain.driveMotors[0].getOutputCurrent());
+//		Shuffleboard.putNumber("Controls", "DriveTrain Rear Left Current", Robot.driveTrain.driveMotors[1].getOutputCurrent());
+//		Shuffleboard.putNumber("Controls", "DriveTrain Front Right Current", Robot.driveTrain.driveMotors[2].getOutputCurrent());
+//		Shuffleboard.putNumber("Controls", "DriveTrain Rear Right Current", Robot.driveTrain.driveMotors[3].getOutputCurrent());
+//		Shuffleboard.putNumber("Controls", "ElevatorA Current", Robot.elevator.elevatorMotors[0].getOutputCurrent());
+//		Shuffleboard.putNumber("Controls", "ElevatorB Current", Robot.elevator.elevatorMotors[1].getOutputCurrent());
+//		Shuffleboard.putNumber("Controls", "Arm Current", Robot.arm.armMotors[0].getOutputCurrent());
+//		//Shuffleboard.putNumber("Controls", "ArmB Current", Robot.arm.armMotors[1].getOutputCurrent());
+//		Shuffleboard.putNumber("Controls", "Wrist Current", Robot.wrist.wristMotor.getOutputCurrent());
+//		//Shuffleboard.putNumber("Controls", "Intake Left Current", Robot.intake.intakeMotors[0].getOutputCurrent());
+//		//Shuffleboard.putNumber("Controls", "Intake Right Current", Robot.intake.intakeMotors[1].getOutputCurrent());
+//		
+		//Shuffleboard.putNumber("Controls", "Total Current Draw", pdp.getTotalCurrent());
 		Shuffleboard.putBoolean("Controls", "Brownout", RobotController.isBrownedOut());
 
 		Shuffleboard.putNumber("Pathfinder", "Total Auto Time", autoTimer.get());
 		
 		// Use SmartDashboard to put only the important stuff for drivers;
-		SmartDashboard.putNumber("Total Current Draw", pdp.getTotalCurrent());
+		//SmartDashboard.putNumber("Total Current Draw", pdp.getTotalCurrent());
 		SmartDashboard.putBoolean("Brownout", RobotController.isBrownedOut());
 		
 		//Shuffleboard.putData("Controls", new PotentiometerRecalibration(Robot.wrist.wristPot));

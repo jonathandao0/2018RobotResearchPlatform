@@ -53,33 +53,33 @@ public class Wrist extends PIDSubsystem {
 		setAbsoluteTolerance(8);
 		setInputRange(angleLowerLimit, angleUpperLimit);
 		setOutputRange(-1, 1);
-		
-		wristMotor.setNeutralMode(NeutralMode.Brake);
-		wristMotor.configPeakOutputForward(1, 0);
-		wristMotor.configPeakOutputReverse(-1, 0);
-		//wristMotor.setSafetyEnabled(true);
-		wristMotor.configContinuousCurrentLimit(20, 0);
-		wristMotor.configPeakCurrentLimit(45, 0);
-		wristMotor.configPeakCurrentDuration(100, 0);
-		wristMotor.enableCurrentLimit(true);
-		
-		// Initialize the setpoint to where the wrist starts so it doesn't move
-		setSetpoint(getAbsoluteAngle());
-		
-		// Enable the PIDController if state == 0
-		if(RobotMap.WristState == 0)
-			enable();
-		
-		// Add the PIDController to LiveWindow
-		LiveWindow.addChild(this, this);
+//		
+//		wristMotor.setNeutralMode(NeutralMode.Brake);
+//		wristMotor.configPeakOutputForward(1, 0);
+//		wristMotor.configPeakOutputReverse(-1, 0);
+//		//wristMotor.setSafetyEnabled(true);
+//		wristMotor.configContinuousCurrentLimit(20, 0);
+//		wristMotor.configPeakCurrentLimit(45, 0);
+//		wristMotor.configPeakCurrentDuration(100, 0);
+//		wristMotor.enableCurrentLimit(true);
+//		
+//		// Initialize the setpoint to where the wrist starts so it doesn't move
+//		setSetpoint(getAbsoluteAngle());
+//		
+//		// Enable the PIDController if state == 0
+//		if(RobotMap.WristState == 0)
+//			enable();
+//		
+//		// Add the PIDController to LiveWindow
+//		LiveWindow.addChild(this, this);
 		
 		wristPot.setName("Potentiometer");
 		wristPot.setSubsystem("Wrist");
         LiveWindow.add(wristPot);
         
-        wristMotor.setName("Wrist Motor");
-        wristMotor.setSubsystem("Wrist");
-        LiveWindow.add(wristMotor);
+//        wristMotor.setName("Wrist Motor");
+//        wristMotor.setSubsystem("Wrist");
+//        LiveWindow.add(wristMotor);
 	}
 	
 	// Get the angle of the wrist directly from the motor
@@ -165,11 +165,11 @@ public class Wrist extends PIDSubsystem {
 	public void updateSmartDashboard() {
 		// Use Shuffleboard to place things in their own tabs
 		Shuffleboard.putNumber("Wrist", "Absolute Angle", getAbsoluteAngle());
-		Shuffleboard.putNumber("Wrist", "Relative Angle", getRelativeAngle());
+		//Shuffleboard.putNumber("Wrist", "Relative Angle", getRelativeAngle());
 		Shuffleboard.putNumber("Wrist", "Motor Angle", getUnscaledAngle());
 		Shuffleboard.putNumber("Wrist", "Setpoint", getPIDController().getSetpoint());
 		Shuffleboard.putNumber("Wrist", "Pot Avg. Voltage", wP.getAverageVoltage());
-		Shuffleboard.putNumber("Wrist", "Arm Angle", Robot.arm.getAngle());
+		//Shuffleboard.putNumber("Wrist", "Arm Angle", Robot.arm.getAngle());
 		Shuffleboard.putBoolean("Wrist", "PID Enabled", getPIDController().isEnabled());
 		Shuffleboard.putBoolean("Wrist", "On Target", onTarget());
 		
@@ -189,7 +189,8 @@ public class Wrist extends PIDSubsystem {
 		//Shuffleboard.putNumber("Triple Threat", "Wrist Pot Test", wristPot.get());
 		
 		// Use SmartDashboard to put only the important stuff for drivers;
-		SmartDashboard.putNumber("Wrist Angle", getRelativeAngle());
+		//SmartDashboard.putNumber("Wrist Angle", getRelativeAngle());
+		SmartDashboard.putNumber("Wrist Absolute Angle", getAbsoluteAngle());
 		SmartDashboard.putNumber("Wrist Pot Voltage", wP.getAverageVoltage());
 		SmartDashboard.putBoolean("Wrist PID Enabled", getPIDController().isEnabled());
 	}
@@ -198,6 +199,6 @@ public class Wrist extends PIDSubsystem {
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
-		setDefaultCommand(new UpdateWristSetpoint());
+		//setDefaultCommand(new UpdateWristSetpoint());
 	}
 }

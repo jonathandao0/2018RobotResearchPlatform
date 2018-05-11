@@ -10,6 +10,10 @@ import edu.wpi.first.wpilibj.command.BBCommandGroup;
  */
 public class AutoRoutineScriptWrapper extends BBCommandGroup {
 	
+	public void initAutoRoutineScriptWrapper() {
+		
+	}
+	
     public AutoRoutineScriptWrapper() {
     	System.out.println("Running JS Wrapper...");
 		

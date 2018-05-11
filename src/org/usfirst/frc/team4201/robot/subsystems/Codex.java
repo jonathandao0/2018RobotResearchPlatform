@@ -10,7 +10,7 @@ import org.usfirst.frc.team4201.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class Scribe extends Subsystem {
+public class Codex extends Subsystem {
 
 	public static ScriptEngineManager manager;
 	public ScriptEngine engine;
@@ -18,12 +18,12 @@ public class Scribe extends Subsystem {
 	private static final String[] autoScripts = {
 		"SimpleTest",
 		"ClassCallTest",
-		"FunctionReturn",
+		//"FunctionReturn",
 		"FMSReadTest",
-		"InvalidCallTest"
+		//"InvalidCallTest"
 	};
 	
-	public Scribe() {
+	public Codex() {
 		super("ScriptEngine");
 		
 		manager = new ScriptEngineManager();
@@ -31,7 +31,7 @@ public class Scribe extends Subsystem {
 	}
 	
 	public void initAutoScripts() {
-		for (int i = 1; i < autoScripts.length; i++) {
+		for (int i = 0; i < autoScripts.length; i++) {
 			try {
 				String filePath = "/media/sda1/4201RobotFiles/AutoRoutines/" + autoScripts[i] + ".js";
 				engine.eval(new FileReader(filePath));

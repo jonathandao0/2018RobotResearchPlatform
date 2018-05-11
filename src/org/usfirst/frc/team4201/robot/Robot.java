@@ -32,7 +32,8 @@ public class Robot extends TimedRobot {
 	public static Wrist wrist;
 	public static Arm arm;
 	public static Elevator elevator;
-	public static Scribe scribe;
+	public static Codex scribe;
+	public static Controls controls;
 	public static OI oi;
 	
 	public static Command teleOpDrive;
@@ -43,7 +44,8 @@ public class Robot extends TimedRobot {
 	
 	String gameData;
 	
-
+	Invocable selectedScript = null;
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -51,14 +53,16 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
         CSVLogger.getInstance().writeHeader();
-        scribe = new Scribe();
+        wrist = new Wrist();
+        scribe = new Codex();
+        controls = new Controls();
 		oi = new OI();
 		
 		scribe.initAutoScripts();
 		SmartDashboard.putData("Test Commands", m_chooser);
 		
 		// Calling the scripts like this may be invalid, cause it to only execute once
-		SmartDashboard.putData("Select Test Command", new SelectTestCommand());
+		SmartDashboard.putData("Select Test Command", new AutoRoutineScriptWrapper());
 		
 		// Initialize config settings
 		ConfigValues.readIniFile();
@@ -66,6 +70,13 @@ public class Robot extends TimedRobot {
 		ConfigValues.getArmConstantsFromFile();
 		ConfigValues.getElevatorConstantsFromFile();
 	}
+	
+	@Override
+	public void robotPeriodic() {
+		wrist.updateSmartDashboard();
+		controls.updateSmartDashboard();
+	}
+	
 	@Override
 	public void disabledInit() {
 		Scheduler.getInstance().removeAll();
@@ -74,7 +85,16 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
-	
+		
+		if(selectedScript != m_chooser.getSelected()) {
+			try {
+				Robot.m_chooser.getSelected().invokeFunction("initScript"); // Need case structure for different commands requiring different arguments
+				selectedScript = m_chooser.getSelected();
+			} catch(Exception e){
+				DriverStation.reportError("4201 Error: Auto script could not be initialized", false);
+		    	System.out.println(e.getMessage());
+			}
+		}
 	}
 	/**
 	 * This autonomous (along with the chooser code above) shows how to select

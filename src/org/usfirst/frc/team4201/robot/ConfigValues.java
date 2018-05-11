@@ -8,7 +8,6 @@
 package org.usfirst.frc.team4201.robot;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 
