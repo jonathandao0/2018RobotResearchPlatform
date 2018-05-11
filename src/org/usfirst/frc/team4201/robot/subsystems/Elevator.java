@@ -46,10 +46,10 @@ public class Elevator extends PIDSubsystem {
 	
 
 	public static double elevatorHomePosition = 3.8;
-	public static double elevatorSwitchPosition = 3.8;
-	public static double elevatorScaleLowPosition = 3.8;
-	public static double elevatorScaleHighPosition = 3.8;
-	public static double elevatorScaleVeryHighPosition = 3.8;
+	public static double elevatorSwitchPosition = 24.5;
+	public static double elevatorScaleLowPosition = 5;
+	public static double elevatorScaleHighPosition = 12;
+	public static double elevatorScaleVeryHighPosition = 24.5;
 	
 	public WPI_TalonSRX[] elevatorMotors = {
 		new WPI_TalonSRX(RobotMap.elevatorA),
