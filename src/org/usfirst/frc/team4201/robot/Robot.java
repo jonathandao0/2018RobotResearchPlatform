@@ -32,7 +32,7 @@ public class Robot extends TimedRobot {
 	public static Wrist wrist;
 	public static Arm arm;
 	public static Elevator elevator;
-	public static Codex scribe;
+	public static Codex codex;
 	public static Controls controls;
 	public static OI oi;
 	
@@ -54,15 +54,17 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
         CSVLogger.getInstance().writeHeader();
         wrist = new Wrist();
-        scribe = new Codex();
+        codex = new Codex();
         controls = new Controls();
 		oi = new OI();
 		
-		scribe.initAutoScripts();
+		codex.initAutoScripts();
+		//codex.loadScript();
 		SmartDashboard.putData("Test Commands", m_chooser);
 		
 		// Calling the scripts like this may be invalid, cause it to only execute once
-		SmartDashboard.putData("Select Test Command", new AutoRoutineScriptWrapper());
+		SmartDashboard.putData("Select Test Command", new SelectTestCommand());
+		SmartDashboard.putData("Test Command", new TestCommand());
 		
 		// Initialize config settings
 		ConfigValues.readIniFile();
@@ -86,15 +88,7 @@ public class Robot extends TimedRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		
-		if(selectedScript != m_chooser.getSelected()) {
-			try {
-				Robot.m_chooser.getSelected().invokeFunction("initScript"); // Need case structure for different commands requiring different arguments
-				selectedScript = m_chooser.getSelected();
-			} catch(Exception e){
-				DriverStation.reportError("4201 Error: Auto script could not be initialized", false);
-		    	System.out.println(e.getMessage());
-			}
-		}
+		//codex.loadScript();
 	}
 	/**
 	 * This autonomous (along with the chooser code above) shows how to select

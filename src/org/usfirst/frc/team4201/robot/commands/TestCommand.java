@@ -16,7 +16,8 @@ public class TestCommand extends BBCommand {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	SmartDashboard.putNumber("Test Command Executions", ++count);
+    	//SmartDashboard.putNumber("Test Command Executions", ++count);
+    	System.out.println("Selected Test Command");
     }
 
 	@Override

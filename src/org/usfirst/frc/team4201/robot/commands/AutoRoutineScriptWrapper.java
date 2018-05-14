@@ -10,15 +10,11 @@ import edu.wpi.first.wpilibj.command.BBCommandGroup;
  */
 public class AutoRoutineScriptWrapper extends BBCommandGroup {
 	
-	public void initAutoRoutineScriptWrapper() {
-		
-	}
-	
     public AutoRoutineScriptWrapper() {
     	System.out.println("Running JS Wrapper...");
 		
 		try {
-			Robot.m_chooser.getSelected().invokeFunction("autoRoutine"); // Need case structure for different commands requiring different arguments
+			Robot.codex.invoker.invokeFunction("autoRoutine"); // Need case structure for different commands requiring different arguments
 		} catch(Exception e){
 			DriverStation.reportError("4201 Error: Auto script could not be evalulated", false);
 	    	System.out.println(e.getMessage());

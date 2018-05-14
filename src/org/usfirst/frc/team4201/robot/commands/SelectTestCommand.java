@@ -1,5 +1,7 @@
 package org.usfirst.frc.team4201.robot.commands;
 
+import org.usfirst.frc.team4201.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.BBCommand;
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -17,7 +19,8 @@ public class SelectTestCommand extends BBCommand {
     // Called just before this Command runs the first time
     protected void initialize() {
     	System.out.println("Selecting Test Command...");
-		
+    	
+    	Robot.codex.invoker = Robot.m_chooser.getSelected();
 		Command m_autonomousCommand = new AutoRoutineScriptWrapper();
 		
 		if (m_autonomousCommand != null) {
